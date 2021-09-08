@@ -1,0 +1,79 @@
+version: "3.5"
+
+volumes:
+  db:
+  mangosd_etc:
+  realmd_etc:
+
+services:
+  db:
+    build:
+      context: ./db/
+      dockerfile: Dockerfile
+    image: gitlab.sc.lan:5001/korhal/cmangos-docker-classic/db:latest
+    networks:
+      backend:
+        aliases:
+          - database
+    volumes:
+      - db:/var/lib/mysql
+      - ./cmangos_db:/docker-entrypoint-initdb.d:ro
+    restart: "unless-stopped"
+    environment:
+      - TZ=Europe/Amsterdam
+      - MYSQL_ROOT_PASSWORD=mangos
+
+  mangosd:
+    build:
+      context: ./mangosd/
+      dockerfile: Dockerfile
+    image: gitlab.sc.lan:5001/korhal/cmangos-docker-classic/mangosd:latest
+    depends_on:
+      - db
+    networks:
+      - backend
+    ports:
+      - 8085:8085
+      #- 3443:3443 # Enable if you want to use Remote Console
+      #- 7878:7878 # Enable if you want to use SOAP
+    volumes:
+      - "mangosd_etc:/opt/cmangos/etc"
+      - "/opt/cmangos-data:/opt/cmangos-data:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    restart: "unless-stopped"
+    environment:
+      - TZ=Europe/Amsterdam
+      - CHARACTERS_DB=classiccharacters
+      - MANGOSD_DB=classicmangos
+      - REALMD_DB=classicrealmd
+      - DB_USER=mangos
+      - DB_PASS=mangos
+      - REALMD_USER=mangos
+      - REALMD_PASS=mangos
+      - DB_SERVER=database
+      - REALMD_SERVER=database
+
+  realmd:
+    build:
+      context: ./realmd/
+      dockerfile: Dockerfile
+    image: gitlab.sc.lan:5001/korhal/cmangos-docker-classic/realmd:latest
+    depends_on:
+      - db
+    networks:
+      - backend
+    ports:
+      - 3724:3724
+    volumes:
+      - "realmd_etc:/opt/cmangos/etc"
+      - "/etc/localtime:/etc/localtime:ro"
+    restart: "unless-stopped"
+    environment:
+      - TZ=Europe/Amsterdam
+      - REALMD_DB=classicrealmd
+      - DB_USER=mangos
+      - DB_PASS=mangos
+      - DB_SERVER=database
+
+networks:
+  backend:

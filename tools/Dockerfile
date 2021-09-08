@@ -8,7 +8,7 @@ ENV TZ Europe/Amsterdam
 RUN apt update
 
 # Install nginx, php-fpm and supervisord from ubuntu repository
-RUN DEBIAN_FRONTEND=noninteractive apt install -q -y git-core build-essential binutils gcc g++ cpp automake autoconf make libmysql++-dev libtool libssl-dev libcurl4-openssl-dev unrar-free unzip patch zlibc libc6 openssl pkg-config cmake libboost-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev libboost-dev libboost-regex-dev libpthread-stubs0-dev wget && \
+RUN DEBIAN_FRONTEND=noninteractive apt install -q -y git-core build-essential binutils gcc g++ cpp automake autoconf make libmysql++-dev libtool libssl-dev libcurl4-openssl-dev unrar-free unzip patch zlibc libc6 openssl pkg-config cmake libboost-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libpthread-stubs0-dev wget && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare new cmake

@@ -17,7 +17,7 @@ services:
           - database
     volumes:
       - db:/var/lib/mysql
-      - ./cmangos_db:/docker-entrypoint-initdb.d:ro
+      - ./db:/docker-entrypoint-initdb.d:ro
     restart: "unless-stopped"
     environment:
       - TZ=Europe/Amsterdam

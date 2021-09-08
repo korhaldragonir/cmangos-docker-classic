@@ -33,19 +33,19 @@ fi
 
 # Create default database structures
 if [ -f /tmp/cmangos/sql/base/characters.sql ]; then
-  mysql -uroot -pmangos wotlkcharacters < /tmp/cmangos/sql/base/characters.sql
+  mysql -uroot -pmangos classiccharacters < /tmp/cmangos/sql/base/characters.sql
 fi
 
 if [ -f /tmp/cmangos/sql/base/logs.sql ]; then
-  mysql -uroot -pmangos wotlklogs < /tmp/cmangos/sql/base/logs.sql
+  mysql -uroot -pmangos classiclogs < /tmp/cmangos/sql/base/logs.sql
 fi
 
 if [ -f /tmp/cmangos/sql/base/mangos.sql ]; then
-  mysql -uroot -pmangos wotlkmangos < /tmp/cmangos/sql/base/mangos.sql
+  mysql -uroot -pmangos classicmangos < /tmp/cmangos/sql/base/mangos.sql
 fi
 
 if [ -f /tmp/cmangos/sql/base/realmd.sql ]; then
-  mysql -uroot -pmangos wotlkrealmd < /tmp/cmangos/sql/base/realmd.sql
+  mysql -uroot -pmangos classicrealmd < /tmp/cmangos/sql/base/realmd.sql
 fi
 
 # Copy install script

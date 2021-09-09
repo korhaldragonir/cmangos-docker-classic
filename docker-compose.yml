@@ -15,6 +15,8 @@ services:
       backend:
         aliases:
           - database
+    ports:
+      - "127.0.0.1:3306:3306" # Local SQL
     volumes:
       - db:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d:ro

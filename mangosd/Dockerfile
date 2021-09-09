@@ -40,6 +40,7 @@ RUN cd /opt/cmangos/etc && \
     sed -i 's/LogsDir \= ""/LogsDir \= "\/opt\/cmangos\/logs"/g' mangosd.conf && \
     sed -i 's/DataDir \= "."/DataDir \= "\/opt\/cmangos-data"/g' mangosd.conf && \
     sed -i 's/MaxPingTime \= 30/MaxPingTime \= 5/g' mangosd.conf && \
+    sed -i 's/Ra.Enable \= 0/Ra.Enable \= 1/g' mangosd.conf && \
     sed -i 's/Console\.Enable \= 1/Console\.Enable \= 0/g' mangosd.conf
 
 # Download base image ubuntu

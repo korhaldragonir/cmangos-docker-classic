@@ -51,6 +51,14 @@ fi
 # Copy install script
 cp -v /docker-entrypoint-initdb.d/InstallFullDB.config /tmp/db/InstallFullDB.config
 
+# Set ADMINISTRATOR account to level 4 and lock it down
+mysql -uroot -pmangos classicrealmd -e 'UPDATE `account` SET gmlevel = "4", locked = "1" WHERE id = "1" LIMIT 1;'
+
+# Remove other accounts
+mysql -uroot -pmangos classicrealmd -e 'DELETE FROM `account` WHERE id = "2" LIMIT 1;'
+mysql -uroot -pmangos classicrealmd -e 'DELETE FROM `account` WHERE id = "3" LIMIT 1;'
+mysql -uroot -pmangos classicrealmd -e 'DELETE FROM `account` WHERE id = "4" LIMIT 1;'
+
 # Run install scripy
 cd /tmp/db
 ./InstallFullDB.sh

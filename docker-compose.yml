@@ -34,7 +34,7 @@ services:
       - backend
     ports:
       - 8085:8085
-      #- 3443:3443 # Enable if you want to use Remote Console
+      - "127.0.0.1:3443:3443" # Remote Console
       #- 7878:7878 # Enable if you want to use SOAP
     volumes:
       - "mangosd_etc:/opt/cmangos/etc"

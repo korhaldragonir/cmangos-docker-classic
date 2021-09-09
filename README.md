@@ -33,6 +33,14 @@ mysql> UPDATE `realmlist` SET `address` = '<your-ip>', `name` = '<realm-name>' W
 mysql> quit;
 ```
 
+### Administration
+To control the environment you will need to use the Remote Console via the server it is running on. Usually a `telnet` would suffice. E.g:
+```
+$ telnet localhost 3443
+```
+
+You can login with the default `ADMINISTRATOR` credentials. From this console you can create an account to use from the Game Client.
+
 ## Running / Building a specific Commit version
 It is now possible to specify a Commit Hash for both the Core and for the DB. This will overrule the behaviour to clone and build the latest version. Useful for building a known-good build for example. To use this follow either of the following.
 

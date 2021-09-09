@@ -79,3 +79,4 @@ services:
 
 networks:
   backend:
+    name: mangos_backend

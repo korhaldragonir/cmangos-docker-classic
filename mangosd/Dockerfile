@@ -3,16 +3,49 @@ FROM ubuntu:18.04 AS builder
 
 # Fetch build arguments
 ARG CORE_COMMIT_HASH=HEAD \
-    DB_COMMIT_HASH=HEAD
+    DB_COMMIT_HASH=HEAD \
+    BUILD_AHBOT=ON \
+    BUILD_PLAYERBOT=OFF
 
 # Set Timezone
 ENV TZ=Europe/Amsterdam \
     ENV_CORE_COMMIT_HASH=$CORE_COMMIT_HASH \
-    ENV_DB_COMMIT_HASH=$DB_COMMIT_HASH
+    ENV_DB_COMMIT_HASH=$DB_COMMIT_HASH \
+    ENV_BUILD_AHBOT=$BUILD_AHBOT \
+    ENV_BUILD_PLAYERBOT=$BUILD_PLAYERBOT
 
 # Update Ubuntu Software repository
 RUN DEBIAN_FRONTEND=noninteractive apt update && \
-    DEBIAN_FRONTEND=noninteractive apt install -q -y git-core build-essential binutils gcc g++ cpp automake autoconf make libmysql++-dev libtool libssl-dev libcurl4-openssl-dev unrar-free unzip patch zlibc libc6 openssl pkg-config cmake libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev libboost-dev libboost-regex-dev libpthread-stubs0-dev wget && \
+    DEBIAN_FRONTEND=noninteractive apt install -q -y \
+      autoconf \
+      automake \
+      binutils \
+      build-essential \
+      cmake \
+      cpp \
+      g++ \
+      gcc \
+      git-core \
+      libboost-dev \
+      libboost-filesystem-dev \
+      libboost-program-options-dev \
+      libboost-regex-dev \
+      libboost-system-dev \
+      libboost-thread-dev \
+      libc6 \
+      libcurl4-openssl-dev \
+      libmysql++-dev \
+      libpthread-stubs0-dev \
+      libssl-dev \
+      libtool \
+      make \
+      openssl \
+      patch \
+      pkg-config \
+      unrar-free \
+      unzip \
+      wget \
+      zlibc && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare new cmake
@@ -31,7 +64,7 @@ RUN mkdir -p /opt/src && \
 # Build Software
 RUN mkdir -p /opt/cmangos/logs /opt/src/cmangos/build && \
     cd /opt/src/cmangos/build && \
-    cmake .. -DCMAKE_INSTALL_PREFIX=/opt/cmangos -DBUILD_LOGIN_SERVER=OFF -DBUILD_PLAYERBOT=OFF -DBUILD_AHBOT=OFF  && \
+    cmake .. -DCMAKE_INSTALL_PREFIX=/opt/cmangos -DBUILD_LOGIN_SERVER=OFF -DBUILD_PLAYERBOT=${ENV_BUILD_PLAYERBOT} -DBUILD_AHBOT=${ENV_BUILD_AHBOT} && \
     make -j 2 && make install
 
 # Prepare Config Files
@@ -78,12 +111,16 @@ VOLUME ["/opt/cmangos/etc"]
 
 # Fetch build arguments
 ARG CORE_COMMIT_HASH=HEAD \
-    DB_COMMIT_HASH=HEAD
+    DB_COMMIT_HASH=HEAD \
+    BUILD_AHBOT=ON \
+    BUILD_PLAYERBOT=OFF
 
 # Env Variables
 ENV TZ=Europe/Amsterdam \
     ENV_CORE_COMMIT_HASH=$CORE_COMMIT_HASH \
     ENV_DB_COMMIT_HASH=$DB_COMMIT_HASH \
+    ENV_BUILD_AHBOT=$BUILD_AHBOT \
+    ENV_BUILD_PLAYERBOT=$BUILD_PLAYERBOT \
     CHARACTERS_DB=classiccharacters \
     LOGS_DB=classiclogs \
     MANGOSD_DB=classicmangos \

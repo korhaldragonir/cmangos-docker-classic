@@ -64,7 +64,7 @@ $ sudo docker-compose up -d
 ## Build Arguments
 Below you will find the supported build arguments.
 
-When using the `docker-compose build` command only the images that support the arguments will pick them up. So you can specify then all in one go.
+When using the `docker-compose build` command only the images that support the arguments will pick them up. So you can specify them all in one go.
 
 ### cmangos_db
 | Argument     | Description           | Default Value     |

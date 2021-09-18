@@ -61,6 +61,28 @@ In both cases you can now run:
 $ sudo docker-compose up -d
 ```
 
+## Build Arguments
+Below you will find the supported build arguments.
+
+When using the `docker-compose build` command only the images that support the arguments will pick them up. So you can specify then all in one go.
+
+### cmangos_db
+| Argument     | Description           | Default Value     |
+|--------------|-----------------------|-------------------|
+| DB_COMMIT_HASH | This argument determines which Commit hash to use when initializing the db. | HEAD |
+
+### cmangos_mangosd
+| Argument     | Description           | Default Value     |
+|--------------|-----------------------|-------------------|
+| BUILD_AHBOT | This build argument determines whether the Auction House Bot will be built. | ON |
+| BUILD_PLAYERBOT | This build argument determines whether PlayerBot will be built. | OFF |
+| CORE_COMMIT_HASH | This argument determines which Commit hash to use when building (C)MaNGOS. | HEAD |
+
+### cmangos_realmd
+| Argument     | Description           | Default Value     |
+|--------------|-----------------------|-------------------|
+| CORE_COMMIT_HASH | This argument determines which Commit hash to use when building (C)MaNGOS. | HEAD |
+
 ## Environment Variables
 ### cmangos_mangosd
 | Variable     | Description           | Default Value     |

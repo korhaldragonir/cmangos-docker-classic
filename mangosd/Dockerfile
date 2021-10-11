@@ -1,5 +1,5 @@
 # Download base image ubuntu
-FROM ubuntu:18.04 AS builder
+FROM ubuntu:20.04 AS builder
 
 # Fetch build arguments
 ARG CORE_COMMIT_HASH=HEAD \
@@ -49,11 +49,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Prepare new cmake
-RUN cd /tmp && wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.tar.gz && \
-    tar -xvzf cmake-3.16.2-Linux-x86_64.tar.gz && \
-    mv /tmp/cmake-3.16.2-Linux-x86_64 /opt/cmake && \
+RUN cd /tmp && wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3-linux-x86_64.tar.gz && \
+    tar -xvzf cmake-3.21.3-linux-x86_64.tar.gz && \
+    mv /tmp/cmake-3.21.3-linux-x86_64 /opt/cmake && \
     ln -s /opt/cmake/bin/* /usr/local/bin/ && \
-    rm -f /tmp/cmake-3.16.2-Linux-x86_64.tar.gz
+    rm -f /tmp/cmake-3.21.3-linux-x86_64.tar.gz
 
 # Prepare Sources
 RUN mkdir -p /opt/src && \
@@ -77,18 +77,18 @@ RUN cd /opt/cmangos/etc && \
     sed -i 's/Console\.Enable \= 1/Console\.Enable \= 0/g' mangosd.conf
 
 # Download base image ubuntu
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Install dependencies for running CMaNGOSd.
 RUN DEBIAN_FRONTEND=noninteractive apt update && \
     DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -q -y \
     binutils \
     libboost-dev \
-    libboost-filesystem1.65.1 \
-    libboost-program-options1.65.1 \
-    libboost-regex1.65.1 \
-    libboost-system1.65.1 \
-    libboost-thread1.65.1 \
+    libboost-filesystem1.71.0 \
+    libboost-program-options1.71.0 \
+    libboost-regex1.71.0 \
+    libboost-system1.71.0 \
+    libboost-thread1.71.0 \
     libc6 \
     libcurl4 \
     libmysql++3v5 \

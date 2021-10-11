@@ -1,5 +1,5 @@
 # Download base image ubuntu 18.04
-FROM mariadb:10.5-bionic
+FROM mariadb:10.5
 
 # Fetch build arguments
 ARG CORE_COMMIT_HASH=HEAD \

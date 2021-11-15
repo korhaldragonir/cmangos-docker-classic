@@ -1,4 +1,5 @@
 #!/bin/bash
+CURRENT_DIR=$(pwd)
 PATH_TO_CLIENT=../../wow-classic
 PATH_TO_EXTRACTORS=./output/contrib/
 PATH_TO_OFFMESH=../../mangos-classic/contrib/extractor_scripts/offmesh.txt
@@ -35,6 +36,13 @@ rm ad
 rm vmap_assembler
 rm vmap_extractor
 rm MoveMapGen
+
+tar -C ${PATH_TO_CLIENT} -cvf - dbc maps mmaps vmaps | gzip -9c > ${CURRENT_DIR}/cmangos-data.tar.gz
+
+rm -rf ${PATH_TO_CLIENT}/dbc
+mv -rf ${PATH_TO_CLIENT}/maps
+mv -rf ${PATH_TO_CLIENT}/vmaps
+mv -rf ${PATH_TO_CLIENT}/mmaps
 
 # Finish
 exit 0

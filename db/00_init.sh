@@ -61,7 +61,7 @@ mysql -uroot -pmangos classicrealmd -e 'DELETE FROM `account` WHERE id = "4" LIM
 
 # Run install scripy
 cd /tmp/db
-./InstallFullDB.sh
+./InstallFullDB.sh -World
 
 # Cleanup
 cd /

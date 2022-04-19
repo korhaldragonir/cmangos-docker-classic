@@ -1,5 +1,5 @@
 # Download base image ubuntu 18.04
-FROM mariadb:10.5
+FROM mariadb
 
 # Fetch build arguments
 ARG CORE_COMMIT_HASH=HEAD \
@@ -11,6 +11,9 @@ ENV TZ=Europe/Amsterdam \
     ENV_DB_COMMIT_HASH=$DB_COMMIT_HASH
 
 # Install Software
-RUN DEBIAN_FRONTEND=noninteractive apt update && \
-    DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -q -y git tzdata ca-certificates && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -q -y \
+     ca-certificates \
+     git \
+     tzdata && \
     rm -rf /var/lib/apt/lists/*

@@ -40,9 +40,9 @@ rm MoveMapGen
 tar -C ${PATH_TO_CLIENT} -cvf - dbc maps mmaps vmaps | gzip -9c > ${CURRENT_DIR}/cmangos-data.tar.gz
 
 rm -rf ${PATH_TO_CLIENT}/dbc
-mv -rf ${PATH_TO_CLIENT}/maps
-mv -rf ${PATH_TO_CLIENT}/vmaps
-mv -rf ${PATH_TO_CLIENT}/mmaps
+rm -rf ${PATH_TO_CLIENT}/maps
+rm -rf ${PATH_TO_CLIENT}/vmaps
+rm -rf ${PATH_TO_CLIENT}/mmaps
 
 # Finish
 exit 0

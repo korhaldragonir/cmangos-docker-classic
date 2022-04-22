@@ -115,6 +115,7 @@ When using the `docker-compose build` command only the images that support the a
 | MYSQL_ROOT_PASSWORD       | This variable is used to set the MySQL/MariaDB root password on initial deploy. | mangos |
 
 ## Tips
+### Updating the Images
 If you want to re-build the CMaNGOS code within the images without bringing down the running containers you can run the following from within the `cmangos-docker` directory:
 ```
 $ sudo docker-compose build --no-cache
@@ -122,10 +123,21 @@ $ sudo docker-compose build --no-cache
 
 Then after that was succesful you can run:
 ```
-$ sudo docker-compose down
 $ sudo docker-compose up -d
 ```
 Now you should be running the new version with minimal downtime.
+
+### Updating the database
+The database will only be automatically filled on a first run in a clean environment. This is to prevent to auto-delete characters and accounts. To update the database manually afterwards simply use the original database repository's `IntallFullDB.sh` scripts.
+
+Point the script towards `127.0.0.1` (not `localhost` otherwise it will try the local Unix socket) on port `3306` using the credentials defined in the environment variables.
+
+If these settings are in place you can run it using the following invocation:
+```
+$ ./InstallFullDB.sh -World
+```
+
+Do keep in mind that ocassionally you will need to manually update the `characters` and `realm` database too.
 
 # Credits
 Thanks to @vishnubob and contributors for the wait-for-it.sh script (https://github.com/vishnubob/wait-for-it).  
